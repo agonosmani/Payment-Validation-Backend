@@ -37,6 +37,9 @@ public class PaymentCheckingController {
         if (!creditCardValidation.validateExpiryDate(creditCard))
             return new ValidatedDto(false, "Your Credit Card has an expired date!");
 
+        if (!creditCardValidation.validatePANIfAmericanExpress(creditCard))
+            return new ValidatedDto(false, "Your Card is American Express. The PAN Number must start with '34' or '37'!");
+
         if (!creditCardValidation.validateCVVcode(creditCard))
             if (creditCard.getCardType().equals(CardType.AMERICAN_EXPRESS))
                 return new ValidatedDto(false, "Your Card is American Express. The CVV must contain exactly 4 numbers!");

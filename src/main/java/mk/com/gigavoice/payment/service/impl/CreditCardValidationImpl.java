@@ -15,6 +15,13 @@ public class CreditCardValidationImpl implements CreditCardValidation {
     }
 
     @Override
+    public Boolean validatePANIfAmericanExpress(CreditCardDto creditCardDto) {
+        return !creditCardDto.getCardType().equals(CardType.AMERICAN_EXPRESS)
+                || creditCardDto.getPANNumber().startsWith("34")
+                || creditCardDto.getPANNumber().startsWith("37");
+    }
+
+    @Override
     public Boolean validateExpiryDate(CreditCardDto creditCardDto) {
         int now_year = LocalDateTime.now().getYear();
         int now_month = LocalDateTime.now().getMonth().getValue();
